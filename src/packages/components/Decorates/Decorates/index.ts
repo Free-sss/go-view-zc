@@ -7,6 +7,7 @@ import { Decorates06Config } from './Decorates06/index'
 import { Decorates07Config } from './Decorates07/index'
 import { Decorates08Config } from './Decorates08/index'
 import { Decorates09Config } from './Decorates09/index'
+import { MyDecorates01Config } from './MyDecorates01'
 
 export default [
   Decorates01Config,
@@ -17,5 +18,6 @@ export default [
   Decorates06Config,
   Decorates07Config,
   Decorates08Config,
-  Decorates09Config
+  Decorates09Config,
+  MyDecorates01Config
 ]

@@ -1,6 +1,6 @@
 <template>
   <div class="go-border-box">
-    <svg width="400" height="30" viewBox="0 0 400 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="w" height="h" viewBox="0 0 400 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="&#229;&#176;&#143;&#230;&#160;&#135;&#233;&#162;&#152;">
         <g id="&#232;&#131;&#140;&#230;&#157;&#191;">
           <path id="Vector" opacity="0.4"

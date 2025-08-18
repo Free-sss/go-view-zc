@@ -1,0 +1,21 @@
+[
+  {
+    "name": "未遂事故",  
+    "value": 44,
+    "itemStyle": { "color": "#9751c2" },
+    "ratio": 0,
+    "isSelected": true
+  },
+  {
+    "name": "一般事故",
+    "value": 38,
+    "itemStyle": { "color": "#199ed4" },
+    "ratio": 0
+  },
+  {
+    "name": "较大及以上事故",
+    "value": 18,
+    "itemStyle": { "color": "#06c1cd" },
+    "ratio": 0
+  }
+]

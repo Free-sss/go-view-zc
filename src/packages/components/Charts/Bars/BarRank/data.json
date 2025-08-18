@@ -1,0 +1,53 @@
+[
+  {
+    "name": "分类1",
+    "value": 40000,
+    "percentage": 100
+  },
+  {
+    "name": "分类2",
+    "value": 34000,
+    "percentage": 90
+
+  },
+  {
+    "name": "分类3",
+    "value": 30000,
+    "percentage": 80
+  },
+  {
+    "name": "分类4111111111111111111111111111111111111111111",
+    "value": 28000,
+    "percentage": 70
+  },
+  {
+    "name": "分类5",
+    "value": 25000,
+    "percentage": 60
+  },
+  {
+    "name": "分类6",
+    "value": 22000,
+    "percentage": 50
+  },
+  {
+    "name": "分类7",
+    "value": 20000,
+    "percentage": 30
+  },
+  {
+    "name": "分类8",
+    "value": 19000,
+    "percentage": 30
+  },
+  {
+    "name": "分类9",
+    "value": 17000,
+    "percentage": 20
+  },
+  {
+    "name": "分类10",
+    "value": 80000,
+    "percentage": 10
+  }
+]

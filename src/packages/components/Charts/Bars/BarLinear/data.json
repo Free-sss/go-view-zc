@@ -1,0 +1,29 @@
+{
+  "dimensions": ["product", "data1"],
+  "source": [
+    {
+      "product": "长春\n股份",
+      "data1": 75
+    },
+    {
+      "product": "唐山\n公司",
+      "data1": 75
+    },
+    {
+      "product": "四方\n股份",
+      "data1": 75
+    },
+    {
+      "product": "辅镇\n公司",
+      "data1": 75
+    },
+    {
+      "product": "大连\n公司",
+      "data1": 75
+    },
+    {
+      "product": "株机\n公司",
+      "data1": 75
+    }
+  ]
+}

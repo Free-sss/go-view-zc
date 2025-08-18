@@ -1,0 +1,49 @@
+// 页面全局样式
+// 去除高德地图 logo
+.amap-logo {
+  display: none !important;
+  opacity: 0 !important;
+}
+.amap-copyright {
+  opacity: 0 !important;
+}
+
+[data-theme='dark'] {
+  body {
+    background-color: #18181c;
+  }
+}
+
+// .n-card-header {
+//   padding: 12px 16px;
+//   background-color: #122e73 !important;
+// }
+
+// .n-card__content {
+//   background-color: #1b3769;
+// }
+
+.n-modal {
+  z-index: 100000000000;
+}
+
+/* 抽屉效果的CSS实现 */
+.custom_expanded {
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  opacity: 1;
+  transform: translateX(0%) !important;
+}
+.custom_collapsed {
+  transform: translateX(100%) !important;
+  opacity: 0;
+}
+
+.custom_collapsed2 {
+  transform: translateX(-100%) !important;
+  opacity: 0;
+}
+
+#id_4ybzii4v98w000, #id_vw7mdkvmm0000 {
+  cursor: pointer;
+}

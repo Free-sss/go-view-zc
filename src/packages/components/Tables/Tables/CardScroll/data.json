@@ -1,0 +1,50 @@
+{
+  "categories": [
+    {
+      "name": "项目编码",
+      "isSingle": true
+    },
+    {
+      "name": "准入时间",
+      "isSingle": true
+    },
+    {
+      "name": "发包单位",
+      "isSingle": true
+    },
+    {
+      "name": "发包联系人",
+      "isSingle": true
+    },
+    {
+      "name": "联系方式",
+      "isSingle": true
+    },
+    {
+      "name": "作业总人数",
+      "isSingle": false
+    },
+    {
+      "name": "特种作业人数",
+      "isSingle": false
+    }
+  ],
+  "data": [
+    {
+      "title": "培训计划",  
+      "status": "待开展",
+      "data": ["DHZY-2024-ASWRF124", "2025-01-20 12:00:21", "中车XXXX有限公司", "王XX", "010-6XXXXXXX", 231, 37]
+    },
+    {
+      "title": "培训计划",  
+      "status": "待开展",
+      "data": ["DHZY-2024-ASWRF125", "2025-01-15 12:00:00", "中车XXXX有限公司", "吴XX", "010-6XXXXXXX", 131, 29]
+    },
+    {
+      "title": "培训计划",  
+      "status": "待开展",
+      "data": ["DHZY-2024-ASWRF126", "2024-12-30 09:00:00", "中车XXXX有限公司", "张XX", "010-6XXXXXXX", 47, 9]
+
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[
+  {
+      "label": "组织一",
+      "key": "dept-1",
+      "children": [
+          { "label": "子企业 1", "key": "sub-dept-1" },
+          { "label": "子企业 2", "key": "sub-dept-2" }
+      ]
+  }
+]

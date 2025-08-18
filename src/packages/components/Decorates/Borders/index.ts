@@ -13,7 +13,7 @@ import { Border12Config } from './Border12/index'
 import { Border13Config } from './Border13/index'
 import { Border14Config } from './Border14/index'
 import { Border15Config } from './Border15'
-
+import { MyBorder001Config } from './MyBorder01'
 export default [
   Border01Config,
   Border02Config,
@@ -29,5 +29,6 @@ export default [
   Border12Config,
   Border13Config,
   Border14Config,
-  Border15Config
+  Border15Config,
+  MyBorder001Config
 ]

@@ -23,6 +23,7 @@ import { PageEnum } from './enums/pageEnum'
 import { useRouter } from 'vue-router'
 import { useBigSceenStore } from './store/modules/bigscreenStore/bigscreenStore'
 
+
 // 暗黑主题
 const darkTheme = useDarkThemeHook()
 

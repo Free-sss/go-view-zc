@@ -17,6 +17,9 @@ import '@/styles/pages/index.scss'
 import 'animate.css/animate.min.css'
 // 引入标尺
 import 'vue3-sketch-ruler/lib/style.css'
+
+//引入字体
+import './assets/font/font.css'
 // 注册图标
 addCollection(uimIcons)
 addCollection(lineMdIcons)

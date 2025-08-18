@@ -1,0 +1,82 @@
+/* src/assets/font/fonts.css */
+
+/*
+  注意：
+  url() 中的路径依然是相对于项目根目录的公共路径。
+  例如，/assets/font/Alibaba-PuHuiTi-Bold.otf 指向的是项目打包后根目录下的 assets/font/Alibaba-PuHuiTi-Bold.otf
+*/
+
+/* 阿里巴巴普惠体 (Alibaba PuHuiTi) */
+/* Bold */
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/font/Alibaba-PuHuiTi-Bold.otf') format('opentype');
+  font-weight: 700;
+  /* Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Heavy */
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/font/Alibaba-PuHuiTi-Heavy.otf') format('opentype');
+  font-weight: 900;
+  /* Heavy */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Light */
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/font/Alibaba-PuHuiTi-Light.otf') format('opentype');
+  font-weight: 300;
+  /* Light */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Medium */
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/font/Alibaba-PuHuiTi-Medium.ttf') format('truetype');
+  font-weight: 500;
+  /* Medium */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Regular */
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/font/Alibaba-PuHuiTi-Regular.otf') format('opentype');
+  font-weight: 400;
+  /* Regular / Normal */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 阿里妈妈数黑体 (Alimama ShuHeiTi) */
+/* Bold (提供两种格式，优先使用第一种，如果不支持则尝试第二种) */
+@font-face {
+  font-family: 'Alimama ShuHeiTi';
+  src: url('/assets/font/Alimama_ShuHeiTi_Bold.ttf') format('truetype'),
+    url('/assets/font/AlimamaShuHeiTi-Bold.otf') format('opentype');
+  font-weight: 700;
+  /* Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ------------------------------------------------------------------ */
+/* 全局应用字体 */
+body,
+html {
+  font-family: 'Alibaba PuHuiTi', Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+/* 如果你希望标题或其他特定元素使用阿里妈妈数黑体，可以这样设置：*/
+/* h1, h2, h3, .my-special-title {
+  font-family: 'Alimama ShuHeiTi', cursive;
+} */

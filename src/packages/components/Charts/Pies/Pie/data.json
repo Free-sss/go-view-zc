@@ -1,0 +1,27 @@
+[
+  {
+    "name": "分类一",  
+    "value": 94,
+    "itemStyle": { "color": "#9751c2" },
+    "ratio": 0,
+    "isSelected": true
+  },
+  {
+    "name": "分类二",
+    "value": 82,
+    "itemStyle": { "color": "#199ed4" },
+    "ratio": 0
+  },
+  {
+    "name": "分类三",
+    "value": 78,
+    "itemStyle": { "color": "#06c1cd" },
+    "ratio": 0
+  },
+   {
+    "name": "分类四",
+    "value": 60,
+    "itemStyle": { "color": "#f7a35c" },
+    "ratio": 0
+  }
+]

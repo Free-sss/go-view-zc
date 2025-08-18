@@ -3,6 +3,7 @@ import { TextBarrageConfig } from './TextBarrage/index'
 import { TextGradientConfig } from './TextGradient/index'
 import { TextTitleConfig } from './TextTitle'
 import { TextTitle2Config } from './TextTitle2'
+import { MyTextTitle01Config } from './MyTextTitle01'
 
 import { TextGradientStokeConfig } from './TextGradientStroke'
 
@@ -12,5 +13,6 @@ export default [
   TextBarrageConfig,
   TextTitleConfig,
   TextTitle2Config,
-  TextGradientStokeConfig
+  TextGradientStokeConfig,
+  MyTextTitle01Config
 ]

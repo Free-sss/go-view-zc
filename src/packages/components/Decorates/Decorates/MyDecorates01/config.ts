@@ -38,11 +38,11 @@ export const option = {
   dataset: '储罐区监控',
   fontSize: 35,
   fontColor: '#ffffff',
-  paddingX: 46,
-  paddingY: 10,
+  paddingX: 72,
+  paddingY: 8,
   textAlign: 'left', // 水平对齐方式
-  fontWeight: 'normal',
-  fontStyle:  'normal', 
+  fontWeight: 'bold',
+  fontStyle: 'italic',
   // 边框
   borderWidth: 0,
   borderColor: '#ffffff',
@@ -63,6 +63,6 @@ export const option = {
 export default class Config extends PublicConfigClass implements CreateComponentType {
   public key = MyDecorates01Config.key
   public chartConfig = cloneDeep(MyDecorates01Config)
-  public attr = { ...chartInitConfig, x:0,y:0,w: 1920, h: 94, zIndex: 1 }
+  public attr = { ...chartInitConfig, x: 0, y: 0, w: 1920, h: 94, zIndex: 1 }
   public option = cloneDeep(option)
 }

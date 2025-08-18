@@ -15,7 +15,7 @@ export default ({ mode }) =>
   defineConfig({
     // base: process.env.NODE_ENV === 'production' ? '/dl_jcsy/' : './',
     base: process.env.NODE_ENV === 'production' ? '/jtdp/' : './', 
-
+    // base: '/',
     // 路径重定向
     resolve: {
       alias: [

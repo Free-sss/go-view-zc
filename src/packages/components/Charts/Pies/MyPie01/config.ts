@@ -81,7 +81,7 @@ export const option = { // 改名为 baseOption 以更清晰地表示其基础�
       radius: ['60%', '70%'], // 默认环形图半径
       center: ['30%', '50%'],
       roseType: false, // 默认不为玫瑰图，由 index.vue 根据 type 调整
-      padAngle: 2,
+      padAngle: 4,
       avoidLabelOverlap: false,
       itemStyle: {
         show: true,

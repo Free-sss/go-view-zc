@@ -45,7 +45,7 @@ export const option = {
   paddingX: 73,
   paddingY: 6,
   textAlign: 'left', // 水平对齐方式
-  fontWeight: 'bold',
+  fontWeight: 'normal',
   fontStyle: 'normal',
   // 边框
   borderWidth: 0,

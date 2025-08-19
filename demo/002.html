@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECharts 5.6.0 Dynamic Pie Chart Example</title>
+  <!-- Load ECharts 5.6.0 from CDN (推荐使用CDN，如果本地有node_modules也可以继续用) -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script> -->
+  <script src="../node_modules/echarts/dist/echarts.min.js"></script>
+  <style>
+    #chart-container {
+      width: 440px;
+      height: 240px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      background-color: #333;
+      /* 让背景色和图表更好地融合 */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    body {
+      background-color: rgb(125, 125, 125);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      /* 使body至少100%视口高度，用于居中 */
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="chart-container"></div>
+
+  <script>
+    /**
+     * 计算饼图数据的总和
+     * @param {Array<Object>} seriesData - 饼图数据数组，每个元素包含 { value: number, name: string }
+     * @returns {number} 数据总和
+     */
+    function calculatePieTotal(seriesData) {
+      let total = 0;
+      if (seriesData && Array.isArray(seriesData)) {
+        seriesData.forEach(item => {
+          total += item.value;
+        });
+      }
+      return total;
+    }
+
+    /**
+     * 动态创建并渲染 ECharts 饼图
+     * @param {string} containerId - 容器 DOM 元素的 ID
+     * @param {Array<Object>} seriesData - 饼图数据数组
+     * @param {Object} [chartConfig={}] - 图表配置选项
+     * @param {boolean} [chartConfig.showValueInLegend=true] - 是否在图例中显示数值
+     * @param {boolean} [chartConfig.showPercentageInLegend=true] - 是否在图例中显示百分比
+     * @returns {echarts.ECharts} ECharts 实例
+     */
+    function createDynamicPieChart(containerId, seriesData, chartConfig = {}) {
+      const chartDom = document.getElementById(containerId);
+      if (!chartDom) {
+        console.error(`ECharts 容器未找到: #${containerId}`);
+        return null;
+      }
+
+      // 获取 ECharts 实例，如果已存在则直接返回
+      // 生产环境中，如果chartDom内容可能会被清空并重新渲染，需要调用dispose()
+      const myChart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom);
+
+      // 合并默认配置和传入配置
+      const defaultConfig = {
+        showValueInLegend: false,
+        showPercentageInLegend: true,
+        // 其他可能的默认配置...
+      };
+      console.log(defaultConfig.showValueInLegend)
+      const mergedConfig = { ...defaultConfig, ...chartConfig };
+
+      const totalCount = calculatePieTotal(seriesData);
+
+      const option = {
+        color: ['#D4AF48', '#4188E6', '#51AADD', '#73C7A3', '#4D75CD', '#FF6347', '#3CB371'], // 增加一些颜色
+        tooltip: {
+          trigger: 'item',
+          formatter: '{b}: {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          itemGap: 15,
+          itemWidth: 5,
+          itemHeight: 5,
+          top: 'center',
+          left: '50%',
+          icon: 'rect',
+          formatter: function (name) {
+            const foundItem = seriesData.find(item => item.name === name);
+            if (foundItem) {
+              const percentage = totalCount === 0 ? 0 : ((foundItem.value / totalCount) * 100).toFixed(1);
+              let parts = [];
+              parts.push(`{a|${name}}`); // 名称总是显示
+
+              // 根据配置决定是否显示数值和百分比
+              if (mergedConfig.showValueInLegend) {
+                parts.push(`{b|${foundItem.value}}`);
+              }
+              if (mergedConfig.showPercentageInLegend) {
+                parts.push(`{c|${percentage}%}`);
+              }
+              return parts.join('');
+            }
+            return name;
+          },
+          textStyle: {
+            color: '#ffffff',
+            fontSize: 8,
+            rich: {
+              a: {
+                fontSize: 10,
+                color: '#aaa',
+                width: 50,
+                align: 'left'
+              },
+              b: {
+                color: '#ffffff',
+                fontSize: 10,
+                width: 50,
+                align: 'left', // 建议这里也左对齐，或者居中，这样 {a| } {b| } {c| } 之间间距会更统一
+                padding: [0, 5, 0, 5]
+              },
+              c: {
+                fontSize: 11,
+                color: '#ffffff',
+                width: 40,
+                align: 'right'
+              }
+            }
+          }
+        },
+        series: [
+          {
+            name: '任务完成情况',
+            type: 'pie',
+            radius: ['60', '70'],
+            center: ['30%', '50%'],
+            avoidLabelOverlap: false,
+            padAngle: 2,
+            label: {
+              show: true,
+              position: 'center',
+              formatter: () => `{value|${totalCount}}\n{text|总数}`,
+              rich: {
+                value: {
+                  color: '#ffffff',
+                  fontSize: 15,
+                  align: 'center',
+                  verticalAlign: 'middle'
+                },
+                text: {
+                  color: '#ffffff',
+                  fontSize: 8,
+                  align: 'center',
+                  verticalAlign: 'middle',
+                  padding: 5
+                }
+              }
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: 30,
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: true
+            },
+            data: seriesData // 使用传入的动态数据
+          }
+        ]
+      };
+
+      myChart.setOption(option);
+      return myChart; // 返回图表实例，方便外部进行resize等操作
+    }
+
+    // --- 使用示例 ---
+    document.addEventListener('DOMContentLoaded', function () {
+      // 示例 1: 完整显示（数值和百分比）
+      const myData1 = [
+        { value: 3300, name: '失败' },
+        { value: 3111, name: '成功' },
+        { value: 2333, name: '待执' },
+        { value: 6666, name: '二字' },
+        { value: 6616, name: '二字s' },
+        { value: 66416, name: '二字5s' },
+        { value: 8887, name: '复活' }
+      ];
+
+      // 模拟异步数据获取
+      setTimeout(() => {
+        const chartInstance1 = createDynamicPieChart('chart-container', myData1, {
+          showValueInLegend: false,
+          // showPercentageInLegend: true
+        });
+
+        // 绑定窗口resize事件
+        window.addEventListener('resize', () => {
+          if (chartInstance1) chartInstance1.resize();
+        });
+
+        // 示例 2: 动态更新数据和配置 (可以尝试注释掉上面的 setTimeout，然后启用下面的代码)
+        // 比如，过几秒后更新数据，并隐藏数值
+        setTimeout(() => {
+          const newData = [
+            { value: 120, name: '新失败' },
+            { value: 250, name: '新成功' },
+            { value: 80, name: '新待执' }
+          ];
+          console.log('更新图表数据并隐藏数值...');
+          createDynamicPieChart('chart-container', newData, {
+            showValueInLegend: false, // 不显示数值
+            showPercentageInLegend: true // 显示百分比
+          });
+        }, 1000);
+
+      }, 500); // 模拟500ms后数据加载完成
+    });
+  </script>
+</body>
+
+</html>

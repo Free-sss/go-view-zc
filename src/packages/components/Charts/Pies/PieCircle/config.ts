@@ -63,3 +63,6 @@ export default class Config extends PublicConfigClass implements CreateComponent
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
 }
+
+
+// #00000000

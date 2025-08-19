@@ -1,0 +1,33 @@
+{
+  "dimensions": ["product", "data1", "itemColor", "borderColor"],
+  "source": [
+    {
+      "product": "数据1",
+      "data1": 120
+    },
+    {
+      "product": "数据2",
+      "data1": 200
+    },
+    {
+      "product": "数据3",
+      "data1": 150
+    },
+    {
+      "product": "数据4",
+      "data1": 80
+    },
+    {
+      "product": "数据5",
+      "data1": 70
+    },
+    {
+      "product": "数据6",
+      "data1": 110
+    },
+    {
+      "product": "数据7",
+      "data1": 130
+    }
+  ]
+}

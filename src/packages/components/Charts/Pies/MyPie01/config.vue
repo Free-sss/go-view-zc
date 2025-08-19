@@ -63,57 +63,36 @@
         <n-color-picker size="small" :modes="['hex']" v-model:value="optionData.series[0].label.color"></n-color-picker>
       </setting-item>
       <SettingItem name="文字加粗" v-if="optionData.series[0].label.fontWeight">
-        <n-select
-          v-model:value="optionData.series[0].label.fontWeight"
-          size="small"
-          :options="labelConfig.fontWeight"
-        />
+        <n-select v-model:value="optionData.series[0].label.fontWeight" size="small"
+          :options="labelConfig.fontWeight" />
       </SettingItem>
       <setting-item name="文字边框大小" v-if="optionData.series[0].label.textBorderWidth">
-        <n-input-number
-          v-model:value="optionData.series[0].label.textBorderWidth"
-          size="small"
-          :min="0"
-        ></n-input-number>
+        <n-input-number v-model:value="optionData.series[0].label.textBorderWidth" size="small"
+          :min="0"></n-input-number>
       </setting-item>
       <setting-item name="文字边框色" v-if="optionData.series[0].label.textBorderColor">
-        <n-color-picker
-          size="small"
-          :modes="['hex']"
-          v-model:value="optionData.series[0].label.textBorderColor"
-        ></n-color-picker>
+        <n-color-picker size="small" :modes="['hex']"
+          v-model:value="optionData.series[0].label.textBorderColor"></n-color-picker>
       </setting-item>
     </setting-item-box>
     <setting-item-box name="圆角">
       <setting-item name="圆角大小">
-        <n-input-number
-          v-model:value="optionData.series[0].itemStyle.borderRadius"
-          size="small"
-          :min="0"
-        ></n-input-number>
+        <n-input-number v-model:value="optionData.series[0].itemStyle.borderRadius" size="small"
+          :min="0"></n-input-number>
       </setting-item>
       <setting-item name="线条宽度">
-        <n-input-number
-          v-model:value="optionData.series[0].itemStyle.borderWidth"
-          size="small"
-          :min="0"
-        ></n-input-number>
+        <n-input-number v-model:value="optionData.series[0].itemStyle.borderWidth" size="small"
+          :min="0"></n-input-number>
       </setting-item>
     </setting-item-box>
     <setting-item-box name="鼠标聚焦">
       <setting-item name="文字大小">
-        <n-input-number
-          v-model:value="optionData.series[0].emphasis.label.fontSize"
-          size="small"
-          :min="0"
-        ></n-input-number>
+        <n-input-number v-model:value="optionData.series[0].emphasis.label.fontSize" size="small"
+          :min="0"></n-input-number>
       </setting-item>
       <SettingItem name="文字加粗" v-if="optionData.series[0].emphasis.label.fontWeight">
-        <n-select
-          v-model:value="optionData.series[0].emphasis.label.fontWeight"
-          size="small"
-          :options="labelConfig.fontWeight"
-        />
+        <n-select v-model:value="optionData.series[0].emphasis.label.fontWeight" size="small"
+          :options="labelConfig.fontWeight" />
       </SettingItem>
     </setting-item-box>
   </CollapseItem>
@@ -148,8 +127,12 @@ const fontWeightOptions = [
 ]
 
 const labelFormatterOptions = [
-  { label: '数据名', value: '{b}' },
-  { label: '百分比', value: '{d}' },
-  { label: '列名:百分比', value: '{b}:{d}%' }
+  { label: '数据名', value: '{a}' },
+  { label: '数据值', value: '{b}' },
+  { label: '百分比', value: '{c}' },
+  { label: '列名:百分比', value: '{a}:{c}%' },
+  { label: '列名:数据值', value: '{a}:{b}%' },
+  { label: '列名:数据值:百分比', value: '{a}:{b}:{c}%' },
+
 ]
 </script>

@@ -17,6 +17,12 @@ import { isPreview } from '@/utils'
 import { DatasetComponent, GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import dataJson from './data.json'
 
+/**
+ * 定义组件接收的属性
+ * @property {Object} themeSetting - 主题设置对象
+ * @property {Object} themeColor - 主题颜色对象
+ * @property {config} chartConfig - 图表配置对象
+ */
 const props = defineProps({
   themeSetting: {
     type: Object,
@@ -31,18 +37,34 @@ const props = defineProps({
     required: true
   }
 })
+
+/**
+ * 初始化图表选项
+ */
 const initOptions = useCanvasInitOptions(props.chartConfig.option, props.themeSetting)
+
+// 当前高亮的数据索引
 let seriesDataNum = -1
+// 数据最大长度，用于轮播控制
 let seriesDataMaxLength = 0
+// 轮播定时器实例
 let intervalInstance: any = null
 
+// 注册 ECharts 组件和渲染器
 use([DatasetComponent, CanvasRenderer, PieChart, GridComponent, TooltipComponent, LegendComponent])
 
+/**
+ * 计算图表配置选项
+ * @returns {Object} 合并主题后的图表配置
+ */
 const option = computed(() => {
   return mergeTheme(props.chartConfig.option, props.themeSetting, includes)
 })
 
-// 会重新选择需要选中和展示的数据
+/**
+ * 处理系列数据的高亮与取消高亮
+ * 控制当前选中项的切换，实现轮播效果
+ */
 const handleSeriesData = () => {
   if (seriesDataNum > -1) {
     vChartRef.value?.dispatchAction({
@@ -57,7 +79,11 @@ const handleSeriesData = () => {
   })
 }
 
-// 新增轮播
+/**
+ * 添加饼图轮播功能
+ * @param {Object} newData - 新的数据源（可选）
+ * @param {Boolean} skipPre - 是否跳过预处理步骤
+ */
 const addPieInterval = (newData?: typeof dataJson, skipPre = false) => {
   if (!skipPre && !Array.isArray(newData?.source)) return
   if (!skipPre) seriesDataMaxLength = newData?.source.length || 0
@@ -67,7 +93,10 @@ const addPieInterval = (newData?: typeof dataJson, skipPre = false) => {
   }, 1000)
 }
 
-// 取消轮播
+/**
+ * 清除饼图轮播功能
+ * 取消当前高亮并清除定时器
+ */
 const clearPieInterval = () => {
   vChartRef.value?.dispatchAction({
     type: 'downplay',
@@ -77,12 +106,18 @@ const clearPieInterval = () => {
   intervalInstance = null
 }
 
-// 处理鼠标聚焦高亮内容
+/**
+ * 鼠标聚焦时的处理函数
+ * 清除轮播以避免冲突
+ */
 const handleHighlight = () => {
   clearPieInterval()
 }
 
-// 处理鼠标取消悬浮
+/**
+ * 鼠标离开时的处理函数
+ * 如果开启了轮播且当前没有运行，则恢复轮播
+ */
 const handleDownplay = () => {
   if (props.chartConfig.option.isCarousel && !intervalInstance) {
     // 恢复轮播
@@ -90,6 +125,10 @@ const handleDownplay = () => {
   }
 }
 
+/**
+ * 监听图表类型变化
+ * 根据不同的类型设置对应的 radius 和 roseType 属性
+ */
 watch(
   () => props.chartConfig.option.type,
   newData => {
@@ -98,7 +137,7 @@ watch(
         props.chartConfig.option.series[0].radius = '70%'
         props.chartConfig.option.series[0].roseType = false
       } else if (newData === 'ring') {
-        // props.chartConfig.option.series[0].radius = ['40%', '65%']
+        props.chartConfig.option.series[0].radius = ['60%', '70%']
         props.chartConfig.option.series[0].roseType = false
       } else {
         props.chartConfig.option.series[0].radius = '70%'
@@ -111,6 +150,10 @@ watch(
   { deep: false, immediate: true }
 )
 
+/**
+ * 监听是否开启轮播的变化
+ * 开启时隐藏图例，关闭时显示图例
+ */
 watch(
   () => props.chartConfig.option.isCarousel,
   newData => {
@@ -124,6 +167,10 @@ watch(
   }
 )
 
+/**
+ * 监听数据集变化
+ * 更新图例格式化函数，显示名称、值和百分比
+ */
 watch(
   () => props.chartConfig.option.dataset,
   newData => {
@@ -147,6 +194,10 @@ watch(
   }
 )
 
+/**
+ * 监听饼图中心位置变化
+ * 对非法输入进行修正
+ */
 watch(
   () => props.chartConfig.option.series[0].center,
   newData => {
@@ -169,6 +220,10 @@ watch(
   }
 )
 
+/**
+ * 使用数据获取钩子
+ * 在数据更新后更新图表配置并控制轮播
+ */
 const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore, (newData: any) => {
   props.chartConfig.option.dataset = newData
   // clearPieInterval()
@@ -177,6 +232,10 @@ const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore, (n
   }
 })
 
+/**
+ * 组件挂载后的初始化操作
+ * 设置初始数据长度和轮播状态，并初始化图例格式化函数
+ */
 onMounted(() => {
   // seriesDataMaxLength = dataJson.source.length
   if (props.chartConfig.option.isCarousel) {

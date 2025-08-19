@@ -40,7 +40,7 @@ export const FontStyleObject = {
 
 export const option = {
   dataset: '实时视频',
-  fontSize: 18,
+  fontSize: 17,
   fontColor: '#ffffff',
   paddingX: 73,
   paddingY: 6,
@@ -63,6 +63,6 @@ export default class Config extends PublicConfigClass implements CreateComponent
   public key = MyBorder001Config.key
   public chartConfig = cloneDeep(MyBorder001Config)
   public option = cloneDeep(option)
-    public attr = { ...chartInitConfig, x: 0, y: 0, w: 450, h: 300, zIndex: 1 }
-  
+  public attr = { ...chartInitConfig, x: 0, y: 0, w: 450, h: 300, zIndex: 1 }
+
 }

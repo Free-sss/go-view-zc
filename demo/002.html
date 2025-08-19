@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ECharts 5.6.0 Dynamic Pie Chart Example</title>
+  <title>ECharts 5.6.0 Dynamic Pie Chart Example with Background & Legend Background</title>
   <!-- Load ECharts 5.6.0 from CDN (推荐使用CDN，如果本地有node_modules也可以继续用) -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script> -->
   <script src="../node_modules/echarts/dist/echarts.min.js"></script>
@@ -67,16 +67,13 @@
       }
 
       // 获取 ECharts 实例，如果已存在则直接返回
-      // 生产环境中，如果chartDom内容可能会被清空并重新渲染，需要调用dispose()
       const myChart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom);
 
       // 合并默认配置和传入配置
       const defaultConfig = {
         showValueInLegend: false,
         showPercentageInLegend: true,
-        // 其他可能的默认配置...
       };
-      console.log(defaultConfig.showValueInLegend)
       const mergedConfig = { ...defaultConfig, ...chartConfig };
 
       const totalCount = calculatePieTotal(seriesData);
@@ -95,7 +92,13 @@
           top: 'center',
           left: '50%',
           icon: 'rect',
+          // === 修改1: legend.formatter 移到此处，用于控制图例项的显示内容 ===
           formatter: function (name) {
+            // 过滤掉背景饼图的名称，不显示在图例中
+            if (name === 'BackgroundPie') {
+              return '';
+            }
+
             const foundItem = seriesData.find(item => item.name === name);
             if (foundItem) {
               const percentage = totalCount === 0 ? 0 : ((foundItem.value / totalCount) * 100).toFixed(1);
@@ -111,8 +114,19 @@
               }
               return parts.join('');
             }
-            return name;
+            return name; // 找不到对应数据项时返回原始名称
           },
+          // === 修改2: 给 legend 添加背景色，可以使用渐变色 ===
+          backgroundColor: new echarts.graphic.LinearGradient(
+            0, 0, 1, 0, // x, y, x2, y2: 从左(x=0)到右(x=1)的线性渐变
+            [
+              { offset: 0, color: 'rgba(0, 0, 0, 0.3)' },  // 起始颜色，半透明黑色
+              { offset: 1, color: 'rgba(0, 0, 0, 0)' }     // 结束颜色，完全透明
+            ]
+          ),
+          padding: [10, 20, 10, 70], // 增加内边距，给背景留出空间，特别是左侧因为图例图标
+          borderRadius: 5, // 圆角
+          // === 修改1: legend.textStyle 仅保留文本样式，formatter 已移走 ===
           textStyle: {
             color: '#ffffff',
             fontSize: 8,
@@ -127,7 +141,7 @@
                 color: '#ffffff',
                 fontSize: 10,
                 width: 50,
-                align: 'left', // 建议这里也左对齐，或者居中，这样 {a| } {b| } {c| } 之间间距会更统一
+                align: 'left',
                 padding: [0, 5, 0, 5]
               },
               c: {
@@ -140,10 +154,42 @@
           }
         },
         series: [
+          // === 背景圆饼系列 (未修改，保留原样) ===
+          {
+            type: 'pie',
+            radius: [0, '75%'], // 半径：0 到 75%
+            center: ['30%', '48%'], // 圆心：向上移动 2%
+            silent: true, // 不响应鼠标事件
+            label: { show: false }, // 无标签
+            labelLine: { show: false }, // 无标签线
+            tooltip: { show: false }, // 无提示框
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(
+                0, 1, 0, 0,
+                [
+                  { offset: 0, color: 'rgba(65, 136, 230, 0.4)' },
+                  { offset: 1, color: 'rgba(65, 136, 230, 0)' }
+                ]
+              ),
+              borderColor: new echarts.graphic.LinearGradient(
+                0, 1, 0, 0,
+                [
+                  { offset: 0, color: 'rgba(81, 170, 221, 0.8)' },
+                  { offset: 1, color: 'rgba(81, 170, 221, 0.2)' }
+                ]
+              ),
+              borderWidth: 3
+            },
+            data: [
+              { value: 1, name: 'BackgroundPie' }
+            ],
+            z: 0 // 最底层
+          },
+          // === 原有的主饼图系列 (radius 和 center 保持与背景饼图的相对关系) ===
           {
             name: '任务完成情况',
             type: 'pie',
-            radius: ['60', '70'],
+            radius: ['60%', '70%'], // 统一为百分比字符串
             center: ['30%', '50%'],
             avoidLabelOverlap: false,
             padAngle: 2,
@@ -177,7 +223,8 @@
             labelLine: {
               show: true
             },
-            data: seriesData // 使用传入的动态数据
+            data: seriesData, // 使用传入的动态数据
+            z: 1 // 在背景之上
           }
         ]
       };
@@ -188,7 +235,6 @@
 
     // --- 使用示例 ---
     document.addEventListener('DOMContentLoaded', function () {
-      // 示例 1: 完整显示（数值和百分比）
       const myData1 = [
         { value: 3300, name: '失败' },
         { value: 3111, name: '成功' },
@@ -203,7 +249,7 @@
       setTimeout(() => {
         const chartInstance1 = createDynamicPieChart('chart-container', myData1, {
           showValueInLegend: false,
-          // showPercentageInLegend: true
+          showPercentageInLegend: true
         });
 
         // 绑定窗口resize事件
@@ -211,8 +257,7 @@
           if (chartInstance1) chartInstance1.resize();
         });
 
-        // 示例 2: 动态更新数据和配置 (可以尝试注释掉上面的 setTimeout，然后启用下面的代码)
-        // 比如，过几秒后更新数据，并隐藏数值
+        // 示例 2: 动态更新数据和配置
         setTimeout(() => {
           const newData = [
             { value: 120, name: '新失败' },
@@ -221,10 +266,10 @@
           ];
           console.log('更新图表数据并隐藏数值...');
           createDynamicPieChart('chart-container', newData, {
-            showValueInLegend: false, // 不显示数值
-            showPercentageInLegend: true // 显示百分比
+            showValueInLegend: false,
+            showPercentageInLegend: true
           });
-        }, 1000);
+        }, 3000); // 3秒后更新数据，看效果
 
       }, 500); // 模拟500ms后数据加载完成
     });

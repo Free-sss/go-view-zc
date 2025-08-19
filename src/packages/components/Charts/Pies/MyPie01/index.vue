@@ -1,5 +1,7 @@
 <template>
-  <v-chart ref="vChartRef" autoresize :init-options="initOptions" :theme="themeColor" :option="option"></v-chart>
+  <v-chart ref="vChartRef" autoresize :init-options="initOptions" :theme="themeColor" :option="option">
+  </v-chart>
+
 </template>
 
 <script setup lang="ts">
@@ -35,7 +37,8 @@ const props = defineProps({
   chartConfig: {
     type: Object as PropType<config>,
     required: true
-  }
+  },
+
 })
 
 /**

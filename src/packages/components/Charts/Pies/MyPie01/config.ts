@@ -26,7 +26,7 @@ const otherConfig = {
   isCarousel: false,
 }
 
-export const option = { // 改名为 baseOption 以更清晰地表示其基础性
+export const option = { 
   ...otherConfig,
   // tooltip: {
   //   show: true,
@@ -42,7 +42,6 @@ export const option = { // 改名为 baseOption 以更清晰地表示其基础�
     top: 'center',
     left: '50%',
     icon: 'rect',
-    // ⚠️ formatter 必须移除动态逻辑，这里设置为一个静态占位符
     formatter: '{name}', // 仅显示名称，动态内容由 index.vue 填充
     textStyle: {
       color: '#ffffff',
@@ -74,13 +73,13 @@ export const option = { // 改名为 baseOption 以更清晰地表示其基础�
     }
   },
   color: ['#D4AF48', '#4188E6', '#51AADD', '#73C7A3', '#4D75CD', '#FF6347', '#3CB371'],
-  dataset: { ...dataJson }, // 默认的 dataset，可以作为初始数据，index.vue 会处理实际数据
+  dataset: { ...dataJson }, 
   series: [
     {
       type: 'pie',
       radius: ['60%', '70%'], // 默认环形图半径
       center: ['30%', '50%'],
-      roseType: false, // 默认不为玫瑰图，由 index.vue 根据 type 调整
+      roseType: false, 
       padAngle: 4,
       avoidLabelOverlap: false,
       itemStyle: {
@@ -91,8 +90,7 @@ export const option = { // 改名为 baseOption 以更清晰地表示其基础�
       label: {
         show: true,
         position: 'center',
-        // ⚠️ formatter 必须移除动态逻辑，这里设置为一个静态占位符
-        formatter: '{b}', // 默认显示名称，总数逻辑由 index.vue 填充
+        formatter: '{b}', 
         textBorderWidth: 1,
         rich: {
           value: {

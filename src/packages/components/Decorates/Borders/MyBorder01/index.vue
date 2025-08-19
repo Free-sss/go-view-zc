@@ -1,6 +1,9 @@
 <template>
   <div class="go-border-box">
-    <svg width="w" height="h" viewBox="0 0 400 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="content">
+      {{ option.dataset }}
+    </div>
+    <svg class="svg" viewBox="0 0 400 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="&#229;&#176;&#143;&#230;&#160;&#135;&#233;&#162;&#152;">
         <g id="&#232;&#131;&#140;&#230;&#157;&#191;">
           <path id="Vector" opacity="0.4"
@@ -200,8 +203,11 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, toRefs } from 'vue'
+import { PropType, toRefs, shallowReactive, watch } from 'vue'
 import { CreateComponentType } from '@/packages/index.d'
+import { useChartDataFetch } from '@/hooks'
+import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { option as configOption } from './config'
 
 const props = defineProps({
   chartConfig: {
@@ -209,17 +215,114 @@ const props = defineProps({
     required: true
   }
 })
+const { fontColor,
+  fontSize,
+  letterSpacing,
+  paddingY,
+  paddingX,
+  textAlign,
+  borderWidth,
+  borderColor,
+  borderRadius,
+  writingMode,
+  backgroundColor,
+  fontWeight,
+  fontStyle, colors, lineHeight } = toRefs(props.chartConfig.option)
 
-// 这里能拿到图表宽高等
-const { w, h } = toRefs(props.chartConfig.attr)
-// 这里能拿到上面 config.ts 里的 option 数据
-const { colors, dur, backgroundColor } = toRefs(props.chartConfig.option)
-
+const option = shallowReactive({
+  dataset: configOption.dataset
+})
+// 手动更新
+watch(
+  () => props.chartConfig.option.dataset,
+  (newData: any) => {
+    option.dataset = newData
+  },
+  {
+    immediate: true,
+    deep: false
+  }
+)
+// 预览更新
+useChartDataFetch(props.chartConfig, useChartEditStore, (newData: string) => {
+  option.dataset = newData
+})
 </script>
-
 <style lang="scss" scoped>
+// @include go('text-box') {
+
+//   display: flex;
+//   width: 100%;
+//   overflow: hidden;
+//   position: relative;
+// }
+
+// @include go('border-box') {
+//   // 渐变边框
+//   border: 2px solid transparent;
+//   border-radius: 10px; 
+//   border-image: linear-gradient(to top,
+//       rgba(128, 128, 128, 0.5),
+//       /* 底部：灰色，80%透明度 */
+//       rgba(128, 128, 128, 0)
+//       /* 顶部：灰色，0%透明度 */
+//     ) 1;
+//   overflow: hidden;
+//   width: 100%;
+//   height: 100%;
+//   position: relative;
+//   /* 确保content的absolute定位正确 */
+// }
 @include go('border-box') {
-  // width: v-bind('w') + 'px';
-  // height: v-bind('h') + 'px';
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 2px;
+    /* 边框宽度 */
+    background: linear-gradient(to top,
+        rgba(128, 128, 128, 0.5),
+        rgba(128, 128, 128, 0));
+    -webkit-mask:
+      linear-gradient(#fff, #fff) content-box,
+      linear-gradient(#fff, #fff);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center; // 保持垂直居中
+  justify-content: v-bind('textAlign');
+  color: v-bind('fontColor');
+  padding: v-bind('`${paddingY}px ${paddingX}px`');
+  font-size: v-bind('fontSize + "px"');
+  letter-spacing: v-bind('letterSpacing + "px"');
+  writing-mode: v-bind('writingMode');
+  font-weight: v-bind('fontWeight');
+  font-style: v-bind('fontStyle');
+  border-style: solid;
+  border-width: v-bind('borderWidth + "px"');
+  border-radius: v-bind('borderRadius + "px"');
+  border-color: v-bind('borderColor');
+  background-color: v-bind('backgroundColor');
+  text-shadow: -4px -4px 10px #3B8ED4;
 }
 </style>

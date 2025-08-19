@@ -185,8 +185,6 @@ watch(
         // 找到与当前名称对应的值
         var value = newData.source.find((item: any) => item[newData.dimensions[0]] === name)[newData.dimensions[1]]
         // 返回格式化的字符串，包括名称和百分比
-        console.log(total);
-
         if (value) {
           return name + '\n\n' + value + '  ' + ((value / total) * 100).toFixed(2) + '%'
         }
@@ -195,6 +193,7 @@ watch(
     }
   }
 )
+
 /**
  * 监听饼图中心位置变化
  * 对非法输入进行修正
@@ -249,7 +248,6 @@ onMounted(() => {
     for (var i = 0; i < props.chartConfig.option.dataset.source.length; i++) {
       total += props.chartConfig.option.dataset.source[i][props.chartConfig.option.dataset.dimensions[1]]
     }
-    console.log('total', total)
     // 找到与当前名称对应的值
     var value = props.chartConfig.option.dataset.source.find(
       (item: any) => item[props.chartConfig.option.dataset.dimensions[0]] === name

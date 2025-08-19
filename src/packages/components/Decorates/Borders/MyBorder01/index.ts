@@ -11,7 +11,7 @@ export const MyBorder001Config: ConfigType = {
   // 配置组件渲染 Components 格式: VC + key
   conKey: 'VCMyBorder01',
   // 名称
-  title: '边框001',
+  title: 'MyBorder01',
   // 子分类目录
   category: ChatCategoryEnum.BORDER,
   // 子分类目录
@@ -19,7 +19,7 @@ export const MyBorder001Config: ConfigType = {
   // 包分类
   package: PackagesCategoryEnum.DECORATES,
   // 图表类型
-  chartFrame: ChartFrameEnum.STATIC,
+  chartFrame: ChartFrameEnum.COMMON,
   // 图片 (注意！图片存放的路径必须在 src/assets/images/chart/包分类名称/*)
   // 文件夹名称需要和包分类名称一致: PackagesCategoryEnum.INFORMATIONS
   image: 'myborder001.png'

@@ -2,14 +2,30 @@ import { echartOptionProfixHandle, PublicConfigClass } from '@/packages/public'
 import { Componentz01 } from './index'
 import { CreateComponentType } from '@/packages/index.d'
 import cloneDeep from 'lodash/cloneDeep'
+import { chartInitConfig } from '@/settings/designSetting'
+
+import { average } from '@visactor/vchart/esm/util'
 // import dataJson from './data.json'
+const mockData = {
+
+  timeDataSource: [
+    ['时间', '数值'],
+    ['13:00', 99],
+    ['14:00', 19],
+    ['15:00', 75],
+    ['16:00', 26],
+    ['17:00', 35],
+    ['18:00', 20],
+    ['19:00', 10]
+  ]
+}
 
 export const includes = ['legend', 'xAxis', 'yAxis', 'grid']
 export const seriesItem = {
-  type: 'line'
-  ,
+  type: 'line',
   smooth: true,
   symbol: 'none',
+
   label: {
     show: false,
     position: 'top',
@@ -44,16 +60,13 @@ export const seriesItem = {
 }
 export const option = {
   dataset: {
-    source: [
-      ['时间', '数值'],
-      ['13:00', 99],
-      ['14:00', 19],
-      ['15:00', 75],
-      ['16:00', 26],
-      ['17:00', 35],
-      ['18:00', 20],
-      ['19:00', 10]
-    ]
+    source: mockData.timeDataSource
+  },
+  grid: {
+    left: '15%',
+    right: '15%',
+    top: '9%',
+    bottom: '20%'
   },
   xAxis: {
     type: 'category',
@@ -113,5 +126,6 @@ export default class Config extends PublicConfigClass implements CreateComponent
   public chartConfig = cloneDeep(Componentz01)
   // 图表配置项
   public option = echartOptionProfixHandle(option, includes)
+  public attr = { ...chartInitConfig, x: 0, y: 0, w: 434, h: 263, zIndex: 1 }
 }
 

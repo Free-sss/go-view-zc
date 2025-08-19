@@ -24,5 +24,5 @@ export const MyBorder001Config: ConfigType = {
   // 文件夹名称需要和包分类名称一致: PackagesCategoryEnum.INFORMATIONS
   image: 'myborder001.png'
 }
-export { default as MyBorder01 } from './index.vue'
-export * from './config' // 导出配置类型或常量（可选）
+// export { default as MyBorder01 } from './index.vue'
+// export * from './config' // 导出配置类型或常量（可选）
